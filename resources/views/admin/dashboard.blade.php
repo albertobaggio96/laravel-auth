@@ -16,8 +16,10 @@
                         {{ session('status') }}
                     </div>
                     @endif
-
-                    {{ __('You are logged in!') }}
+                    <div>
+                        {{ __('You are logged in!') }}
+                    </div>
+                    <div><a href="{{ route("admin.project.index") }}">vai alla lista project</a></div>
                 </div>
             </div>
         </div>

@@ -23,7 +23,7 @@ class ProjectTebleSeeder extends Seeder
             $newProject->slug = Str::slug($newProject->title);
             $newProject->author = "Alberto Baggio";
             $newProject->date = $faker->date();
-            $newProject->preview = $faker->url();
+            $newProject->preview = $faker->imageUrl(640, 480, 'animals', true);
             $newProject->save();
         }
     }
