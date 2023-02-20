@@ -10,6 +10,24 @@ use Illuminate\Support\Str;
 
 class ProjectController extends Controller
 {
+    protected $rules=[
+        "title"=>"required|string|min:2|max:100|unique:projects,title",
+        "date"=>"required|date_format:Y-m-d",
+        "preview"=>"required|url|max:250"   
+    ];
+    protected $errorsMessage=[
+        "title.required"=>"Title è un campo obbligatorio",
+        "title.min"=>"Title deve contenere almeno 2 caratteri",
+        "title.max"=>"Title non può avere più di 100 caratteri",
+        "title.unique"=>"Title esiste già",
+
+        "date.required"=>"Date è un campo obbligatorio",
+        "date.date_format"=>"formato della data deve essere YYYY/mm/dd",
+        
+        "preview.required"=>"Preview è un campo obbligatorio",
+        "preview.url"=>"Preview deve essere un URL valido",
+        "preview.max"=>"Preview non può avere più di 250 caratteri"
+    ];
     /**
      * Display a listing of the resource.
      *
@@ -39,8 +57,10 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
-        $data=$request->all();
-        $data["author"] = Auth::user()->name;
+        $rules= $this->rules;
+        $errorsMessage= $this->errorsMessage;
+        $data= $request->validate($rules, $errorsMessage);
+        $data["author"]= Auth::user()->name;
         $data["slug"]= Str::slug($data["title"]);
 
         $newProject= new Project();
