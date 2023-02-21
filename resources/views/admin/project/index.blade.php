@@ -34,7 +34,7 @@
             <td>
               <a href="{{ route("admin.project.show", $project->slug) }}" class="btn btn-primary">Show</a>
               <a href="{{ route("admin.project.edit", $project->slug) }}" class="btn btn-warning">Edit</a>
-              <form class="d-inline" action="{{ route("admin.project.destroy", $project->slug) }}" method="POST">
+              <form class="d-inline delete-element" action="{{ route("admin.project.destroy", $project->slug) }}" method="POST" method="POST" data-element-name="{{ $project->title }}">
                 @csrf
                 @method("DELETE")
                 <button type="submit" class="btn btn-danger" value="delete">Delete</button>
@@ -46,4 +46,8 @@
   </table>
   {{ $projects->links() }}
 </section>
+@endsection
+
+@section("js")
+  @vite('resources/js/deleteConfirm.js')
 @endsection

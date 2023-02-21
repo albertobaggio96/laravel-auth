@@ -125,6 +125,6 @@ class ProjectController extends Controller
     {
         $project->delete();
 
-        return redirect()->route("admin.project.index")->with("message", "è stato cancellato $project->title con successo")->with("alert-type", "warning");
+        return redirect()->route("admin.project.index")->with("message", "$project->title è stato cancellato con successo")->with("alert-type", "warning");
     }
 }

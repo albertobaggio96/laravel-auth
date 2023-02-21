@@ -18,7 +18,7 @@
 
         <a href="{{ route("admin.project.index") }}" class="btn btn-primary">Back</a>
         <a href="{{ route("admin.project.edit", $project->slug) }}" class="btn btn-warning">Edit</a>
-        <form class="d-inline" action="{{ route("admin.project.destroy", $project->slug) }}" method="POST">
+        <form class="d-inline delete-element" action="{{ route("admin.project.destroy", $project->slug) }}" method="POST" data-element-name="{{ $project->title }}">
           @csrf
           @method("DELETE")
           <button type="submit" class="btn btn-danger" value="delete">Delete</button>
@@ -27,4 +27,8 @@
         <a href="{{ route("admin.project.show", $nextProject->slug ?? "") }}" class="@if(!isset($nextProject)) disabled @endisset btn btn-secondary ms-auto">Next</a>
       </div>
     </section>
+@endsection
+
+@section("js")
+  @vite('resources/js/deleteConfirm.js')
 @endsection
