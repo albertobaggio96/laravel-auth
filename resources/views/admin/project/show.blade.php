@@ -9,10 +9,11 @@
       <div>
         <a href="{{ route("admin.project.index") }}" class="btn btn-primary">Torna alla tabella</a>
         <a href="" class="btn btn-warning">Edit</a>
-        <form class="d-inline" action="">
-          <button type="submit" class="btn btn-danger">Delete</button>
+        <form class="d-inline" action="{{ route("admin.project.destroy", $project->id) }}" method="POST">
+          @csrf
+          @method("DELETE")
+          <button type="submit" class="btn btn-danger" value="delete">Delete</button>
         </form>
-
       </div>
     </section>
 @endsection
