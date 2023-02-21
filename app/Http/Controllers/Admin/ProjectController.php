@@ -127,4 +127,11 @@ class ProjectController extends Controller
 
         return redirect()->route("admin.project.index")->with("message", "$project->title è stato cancellato con successo")->with("alert-type", "warning");
     }
+
+    public function trashed(){
+
+        $trashProjects = Project::onlyTrashed()->get();
+        return view("admin.project.trashed", compact("trashProjects"));
+
+    }
 }

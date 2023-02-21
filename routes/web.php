@@ -22,6 +22,9 @@ Route::get('/', function () {
 
 Route::middleware(['auth', 'verified'])->prefix("admin")->name('admin.')->group(function(){
     Route::get('/dashboard', [DashboardController::class, "index"])->name("dashboard.");
+    Route::get("/project/trashed",  [ProjectController::class, "trashed"] )->name("trashed");
+    Route::get("/project/{slug}/restore", [ProjectController::class, "restore"])->name("restore");
+    Route::delete("/project/{slug}/force-delete", [ProjectController::class, "forceDelete"])->name("force-delete");
     Route::resource("/project", ProjectController::class);
 });
 

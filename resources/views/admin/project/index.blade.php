@@ -11,6 +11,7 @@
 
   <div class="text-center pb-4">
     <a href="{{ route("admin.project.create") }}" class="btn btn-primary">Add new Project</a>
+    <a href="{{ route("admin.trashed") }}" class="btn btn-secondary">trash</a>
   </div>
   <table class="table table-dark table-striped table-hover">
     <thead>
