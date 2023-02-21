@@ -27,7 +27,7 @@
             <td><img src="{{ $project->preview }}" alt="{{ $project->title }}" class="preview"></td>
             <td>
               <a href="{{ route("admin.project.show", $project->id) }}" class="btn btn-primary">Show</a>
-              <a href="" class="btn btn-warning">Edit</a>
+              <a href="{{ route("admin.project.edit", $project->id) }}" class="btn btn-warning">Edit</a>
               <form class="d-inline" action="">
                 <button type="submit" class="btn btn-danger">Delete</button>
               </form>
