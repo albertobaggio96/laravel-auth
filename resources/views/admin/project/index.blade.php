@@ -2,7 +2,12 @@
 
 @section('content')
 <section  class="container">
-
+  @if (session("message"))
+    <div class="alert alert-{{ session('alert-type') }} mt-5">
+      {{ session("message") }}
+    </div>
+      
+  @endif
   <div class="text-center py-4">
     <a href="{{ route("admin.project.create") }}" class="btn btn-primary">Add new Project</a>
   </div>

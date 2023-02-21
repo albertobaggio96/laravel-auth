@@ -68,7 +68,7 @@ class ProjectController extends Controller
         $newProject->fill($data);
         $newProject->save();
 
-        return redirect()->route("admin.project.show", $newProject->id);
+        return redirect()->route("admin.project.show", $newProject->slug)->with("message", "$newProject->title è stato creato con successo")->with("alert-type", "success");
     }
 
     /**
@@ -112,7 +112,7 @@ class ProjectController extends Controller
 
         $project->update($data);
 
-        return redirect()->route("admin.project.show", compact("project"));
+        return redirect()->route("admin.project.show", compact("project"))->with("message", "$project->title è stato modificato con successo")->with("alert-type", "success");
     }
 
     /**
@@ -125,6 +125,6 @@ class ProjectController extends Controller
     {
         $project->delete();
 
-        return redirect()->route("admin.project.index");
+        return redirect()->route("admin.project.index")->with("message", "è stato cancellato $project->title con successo")->with("alert-type", "warning");
     }
 }
