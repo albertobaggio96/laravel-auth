@@ -13,7 +13,7 @@ class ProjectController extends Controller
 {
     protected $rules=[
         "title"=>"required|string|min:2|max:100|unique:projects,title",
-        "date"=>"required|date_format:Y-m-d",
+        "date"=>"required|date",
         "preview"=>"required|url|max:250"   
     ];
     protected $errorsMessage=[
@@ -23,7 +23,7 @@ class ProjectController extends Controller
         "title.unique"=>"Title esiste già",
 
         "date.required"=>"Date è un campo obbligatorio",
-        "date.date_format"=>"formato della data deve essere YYYY/mm/dd",
+        "date.date"=>"formato della data deve essere una data valida",
         
         "preview.required"=>"Preview è un campo obbligatorio",
         "preview.url"=>"Preview deve essere un URL valido",
