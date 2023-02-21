@@ -2,6 +2,12 @@
 
 @section('content')
   <section class="container">
+    @if (session("message"))
+        <div class="alert alert-{{ session('alert-type') }} mb-5">
+          {{ session("message") }}
+        </div>
+      @endif
+      
     <table>
       <table class="table table-striped table-hover">
         <thead>
@@ -15,8 +21,8 @@
             <tr>
                 <td>{{ $project->title }}</td>
                 <td class="text-center">
-                  <a href="{{ route("admin.project.edit", $project->slug) }}" class="btn btn-warning">Edit</a>
-                  <form class="d-inline delete-element" action="{{ route("admin.project.destroy", $project->slug) }}" method="POST" method="POST" data-element-name="{{ $project->title }}">
+                  <a href="{{ route("admin.project.edit", $project->id) }}" class="btn btn-warning">Edit</a>
+                  <form class="d-inline delete-element" action="{{ route("admin.force-delete", $project->slug) }}" method="POST" method="POST" data-element-name="{{ $project->title }}">
                     @csrf
                     @method("DELETE")
                     <button type="submit" class="btn btn-danger" value="delete">Delete</button>

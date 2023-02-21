@@ -125,13 +125,17 @@ class ProjectController extends Controller
     {
         $project->delete();
 
-        return redirect()->route("admin.project.index")->with("message", "$project->title è stato cancellato con successo")->with("alert-type", "warning");
+        return redirect()->route("admin.project.index")->with("message", "$project->title è stato spostato nel cestino")->with("alert-type", "warning");
     }
 
     public function trashed(){
-
         $trashProjects = Project::onlyTrashed()->get();
         return view("admin.project.trashed", compact("trashProjects"));
+    }
 
+    public function forceDelete($slug){
+        $project = Project::where("slug", $slug)->withTrashed()->forceDelete();
+
+        return redirect()->route("admin.trashed")->with("message", "stato cancellato definitivamente")->with("alert-type", "warning");
     }
 }
