@@ -26,9 +26,9 @@
             <td>{{ $project->date }}</td>
             <td><img src="{{ $project->preview }}" alt="{{ $project->title }}" class="preview"></td>
             <td>
-              <a href="{{ route("admin.project.show", $project->id) }}" class="btn btn-primary">Show</a>
-              <a href="{{ route("admin.project.edit", $project->id) }}" class="btn btn-warning">Edit</a>
-              <form class="d-inline" action="{{ route("admin.project.destroy", $project->id) }}" method="POST">
+              <a href="{{ route("admin.project.show", $project->slug) }}" class="btn btn-primary">Show</a>
+              <a href="{{ route("admin.project.edit", $project->slug) }}" class="btn btn-warning">Edit</a>
+              <form class="d-inline" action="{{ route("admin.project.destroy", $project->slug) }}" method="POST">
                 @csrf
                 @method("DELETE")
                 <button type="submit" class="btn btn-danger" value="delete">Delete</button>
