@@ -1,14 +1,15 @@
 @extends('layouts.app')
 
 @section('content')
-<section  class="container">
+<section  class="container mt-5">
+
   @if (session("message"))
-    <div class="alert alert-{{ session('alert-type') }} mt-5">
+    <div class="alert alert-{{ session('alert-type') }}">
       {{ session("message") }}
     </div>
-      
   @endif
-  <div class="text-center py-4">
+
+  <div class="text-center pb-4">
     <a href="{{ route("admin.project.create") }}" class="btn btn-primary">Add new Project</a>
   </div>
   <table class="table table-dark table-striped table-hover">

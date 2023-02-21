@@ -1,7 +1,14 @@
 @extends('layouts.app')
 
 @section('content')
-    <section class="container text-center pt-5">
+    <section class="container text-center mt-5">
+
+      @if (session("message"))
+        <div class="alert alert-{{ session('alert-type') }} mb-5">
+          {{ session("message") }}
+        </div>
+      @endif
+
       <img src="{{ $project->preview }}" alt="{{ $project->title }}">
       <h1>{{ $project->title }}</h1>
       <h3>Author: {{ $project->author }}</h3>
