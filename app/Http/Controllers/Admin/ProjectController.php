@@ -134,8 +134,16 @@ class ProjectController extends Controller
     }
 
     public function forceDelete($slug){
-        $project = Project::where("slug", $slug)->withTrashed()->forceDelete();
+        Project::where("slug", $slug)->withTrashed()->forceDelete();
 
         return redirect()->route("admin.trashed")->with("message", "stato cancellato definitivamente")->with("alert-type", "warning");
+    }
+
+    public function restore($slug){
+        $project= Project::where("slug", $slug)->withTrashed()->restore();
+
+        return redirect()->route("admin.trashed")->with("message", "$slug")->with("alert-type", "success");
+
+
     }
 }

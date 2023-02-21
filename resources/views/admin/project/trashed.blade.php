@@ -21,7 +21,7 @@
             <tr>
                 <td>{{ $project->title }}</td>
                 <td class="text-center">
-                  <a href="{{ route("admin.project.edit", $project->id) }}" class="btn btn-warning">Edit</a>
+                  <a href="{{ route("admin.restore", $project->slug) }}" class="btn btn-warning">Restore</a>
                   <form class="d-inline delete-element" action="{{ route("admin.force-delete", $project->slug) }}" method="POST" method="POST" data-element-name="{{ $project->title }}">
                     @csrf
                     @method("DELETE")
