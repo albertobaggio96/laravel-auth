@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 
-class ProjectController extends Controller
+class ProjectsController extends Controller
 {
     protected $rules=[
         "title"=>"required|string|min:2|max:100|unique:projects,title",

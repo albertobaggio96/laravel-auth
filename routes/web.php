@@ -1,7 +1,8 @@
 <?php
 
 use App\Http\Controllers\Admin\DashboardController;
-use App\Http\Controllers\Admin\ProjectController;
+use App\Http\Controllers\Admin\ProjectsController as AdminProjectsController;
+use App\Http\Controllers\Guest\ProjectsController as GuestProjectsController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -17,15 +18,19 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('home');
+});
+
+Route::prefix("guest")->name("guest.")->group(function(){
+    Route::resource('/projects', GuestProjectsController::class);
 });
 
 Route::middleware(['auth', 'verified'])->prefix("admin")->name('admin.')->group(function(){
-    Route::get('/dashboard', [DashboardController::class, "index"])->name("dashboard.");
-    Route::get("/project/trashed",  [ProjectController::class, "trashed"] )->name("trashed");
-    Route::get("/project/{slug}/restore", [ProjectController::class, "restore"])->name("restore");
-    Route::delete("/project/{slug}/force-delete", [ProjectController::class, "forceDelete"])->name("force-delete");
-    Route::resource("/project", ProjectController::class);
+    Route::get('/dashboard', [DashboardController::class, "index"])->name("dashboard");
+    Route::get("/project/trashed",  [AdminProjectsController::class, "trashed"] )->name("trashed");
+    Route::get("/project/{slug}/restore", [AdminProjectsController::class, "restore"])->name("restore");
+    Route::delete("/project/{slug}/force-delete", [AdminProjectsController::class, "forceDelete"])->name("force-delete");
+    Route::resource("/project", AdminProjectsController::class);
 });
 
 Route::middleware('auth')->group(function () {
