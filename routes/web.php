@@ -22,11 +22,13 @@ Route::get('/', function () {
 });
 
 Route::prefix("guest")->name("guest.")->group(function(){
+    Route::post('/projects/search', [GuestProjectsController::class, "search"])->name("search");
     Route::resource('/projects', GuestProjectsController::class);
 });
 
 Route::middleware(['auth', 'verified'])->prefix("admin")->name('admin.')->group(function(){
     Route::get('/dashboard', [DashboardController::class, "index"])->name("dashboard");
+    Route::post('/projects/search', [AdminProjectsController::class, "search"])->name("search");
     Route::get("/project/trashed",  [AdminProjectsController::class, "trashed"] )->name("trashed");
     Route::get("/project/{slug}/restore", [AdminProjectsController::class, "restore"])->name("restore");
     Route::delete("/project/{slug}/force-delete", [AdminProjectsController::class, "forceDelete"])->name("force-delete");

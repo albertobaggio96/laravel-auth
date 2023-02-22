@@ -168,4 +168,9 @@ class ProjectsController extends Controller
         Project::onlyTrashed()->where("slug", $slug)->restore();
         return redirect()->route("admin.trashed")->with("message", "$titleRestoreProject è stato ripristinato")->with("alert-type", "success");
     }
+
+    public function search(Request $request){
+        $projects=Project::where("title", "LIKE", $request->title."%")->orderBy("date", "DESC")->paginate(6);
+        return view("admin.project.index", compact("projects"));
+    }
 }
