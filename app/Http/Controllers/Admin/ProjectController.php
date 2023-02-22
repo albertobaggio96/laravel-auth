@@ -116,7 +116,7 @@ class ProjectController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Soft delete the specified resource from storage.
      *
      * @param  Project $project
      * @return \Illuminate\Http\Response
@@ -128,22 +128,44 @@ class ProjectController extends Controller
         return redirect()->route("admin.project.index")->with("message", "$project->title è stato spostato nel cestino")->with("alert-type", "warning");
     }
 
+    /**
+     * Display a listing of trash.
+     * 
+     *
+     * @return \Illuminate\Http\Response
+     */
+
     public function trashed(){
         $trashProjects = Project::onlyTrashed()->get();
         return view("admin.project.trashed", compact("trashProjects"));
     }
 
+    /**
+     * Force delete the specified resource from storage.
+     *
+     * @param  string $slug
+     * @return \Illuminate\Http\Response
+     */
+
     public function forceDelete($slug){
+        $project= Project::onlyTrashed()->where("slug", $slug)->first();
+        $titleRestoreProject = $project->title;
         Project::where("slug", $slug)->withTrashed()->forceDelete();
 
-        return redirect()->route("admin.trashed")->with("message", "stato cancellato definitivamente")->with("alert-type", "warning");
+        return redirect()->route("admin.trashed")->with("message", "$titleRestoreProject è stato cancellato definitivamente")->with("alert-type", "warning");
     }
 
+    /**
+     * Restore the specified resource from soft delete.
+     *
+     * @param  string $slug
+     * @return \Illuminate\Http\Response
+     */
+
     public function restore($slug){
-        $project= Project::where("slug", $slug)->withTrashed()->restore();
-
-        return redirect()->route("admin.trashed")->with("message", "$slug")->with("alert-type", "success");
-
-
+        $project= Project::onlyTrashed()->where("slug", $slug)->first();
+        $titleRestoreProject = $project->title;
+        Project::onlyTrashed()->where("slug", $slug)->restore();
+        return redirect()->route("admin.trashed")->with("message", "$titleRestoreProject è stato ripristinato")->with("alert-type", "success");
     }
 }
