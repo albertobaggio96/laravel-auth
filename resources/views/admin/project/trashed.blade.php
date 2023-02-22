@@ -22,7 +22,7 @@
                 <td>{{ $project->title }}</td>
                 <td class="text-center">
                   <a href="{{ route("admin.restore", $project->slug) }}" class="btn btn-warning">Restore</a>
-                  <form class="d-inline delete-element" action="{{ route("admin.force-delete", $project->slug) }}" method="POST" method="POST" data-element-name="{{ $project->title }}">
+                  <form class="d-inline force-delete-element" action="{{ route("admin.force-delete", $project->slug) }}" method="POST" method="POST" data-element-name="{{ $project->title }}">
                     @csrf
                     @method("DELETE")
                     <button type="submit" class="btn btn-danger" value="delete">Delete</button>
@@ -34,4 +34,8 @@
       </table>
     </table>
   </section>
+@endsection
+
+@section("js")
+  @vite('resources/js/deleteConfirm.js')
 @endsection
