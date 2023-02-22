@@ -1,28 +1,31 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <h2 class="fs-4 text-secondary my-4">
-        {{ __('Dashboard') }}
-    </h2>
-    <div class="row justify-content-center">
-        <div class="col">
-            <div class="card">
-                <div class="card-header">{{ __('User Dashboard') }}</div>
-
-                <div class="card-body">
-                    @if (session('status'))
-                    <div class="alert alert-success" role="alert">
-                        {{ session('status') }}
-                    </div>
-                    @endif
-                    <div>
-                        {{ __('You are logged in!') }}
-                    </div>
-                    <div><a href="{{ route("admin.project.index") }}">vai alla lista project</a></div>
-                </div>
+<section id="guest-projects">
+    <div class="container">
+        <div class="row">
+          <div><a href="{{ route("admin.project.index") }}">vai alla lista project</a></div>
+        @foreach ($projects as $project)
+        <article class="flip-card col-4 g-5">
+          <div class="flip-card-inner">
+            <div class="flip-card-front">
+              <img src="{{ $project->preview }}" alt="{{ $project->title }}" class="img-fluid">
             </div>
-        </div>
+            <div class="flip-card-back">
+              <h1>{{ $project->title }}</h1>
+              <p>{{ $project->date }}</p>
+              <p>{{ $project->author }}</p>
+            </div>
+          </div>
+        </article>
+        @endforeach
+        <section class="pt-3">
+
+          {{ $projects->links() }}
+        </section>
+      </div>
     </div>
-</div>
+    
+
+  </section>
 @endsection
