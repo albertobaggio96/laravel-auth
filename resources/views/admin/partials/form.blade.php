@@ -3,7 +3,7 @@
   controlla i campi inseriti
 </div>
 @endif
-<form class="container my-5" action="{{route($route, $project->slug)}}" method="POST">
+<form class="container my-5" action="{{route($route, $project->slug)}}" method="POST" enctype="multipart/form-data">
     @csrf
     
     @method($method)
@@ -19,7 +19,7 @@
     </div>
     <div class="mb-3">
       <label for="exampleInputEmail1" class="form-label">preview</label>
-      <input type="text" class="form-control @error('preview') is-invalid @enderror" maxlength="250" name="preview" value="{{old('preview', $project->preview) }}">
+      <input type="file" class="form-control @error('preview') is-invalid @enderror" maxlength="250" name="preview" value="{{old('preview', $project->preview) }}">
       @error('preview')
           <div class="invalid-feedback">
             {{ $message }}

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Project;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 
@@ -14,7 +15,7 @@ class ProjectsController extends Controller
     protected $rules=[
         "title"=>"required|string|min:2|max:100|unique:projects,title",
         "date"=>"required|date",
-        "preview"=>"required|url|max:250"   
+        "preview"=>"required|image|max:300"   
     ];
     protected $errorsMessage=[
         "title.required"=>"Title è un campo obbligatorio",
@@ -63,6 +64,7 @@ class ProjectsController extends Controller
         $data= $request->validate($rules, $errorsMessage);
         $data["author"]= Auth::user()->name;
         $data["slug"]= Str::slug($data["title"]);
+        $data["preview"]= Storage::put("img", $data["preview"]);
 
         $newProject= new Project();
         $newProject->fill($data);
