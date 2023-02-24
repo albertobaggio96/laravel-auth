@@ -38,8 +38,8 @@
             <td>{{ $project->date }}</td>
             <td><img src="{{ $project->preview }}" alt="{{ $project->title }}" class="preview"></td>
             <td>
-              <a href="{{ route("admin.project.show", $project->slug) }}" class="btn btn-show px-4"><i class="fa-solid fa-eye"></i></a>
-              <a href="{{ route("admin.project.edit", $project->slug) }}" class="btn btn-edit px-4"><i class="fa-solid fa-pen-to-square"></i></a>
+              <a href="{{ route("admin.project.show", $project->slug) }}" class="btn-show py-2 px-4"><i class="fa-solid fa-eye"></i></a>
+              <a href="{{ route("admin.project.edit", $project->slug) }}" class="btn-edit py-2 px-4"><i class="fa-solid fa-pen-to-square"></i></a>
               <form class="d-inline delete-element" action="{{ route("admin.project.destroy", $project->slug) }}" method="POST" method="POST" data-element-name="{{ $project->title }}">
                 @csrf
                 @method("DELETE")
