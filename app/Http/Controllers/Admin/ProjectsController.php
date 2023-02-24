@@ -27,8 +27,8 @@ class ProjectsController extends Controller
         "date.date"=>"formato della data deve essere una data valida",
         
         "preview.required"=>"Preview è un campo obbligatorio",
-        "preview.url"=>"Preview deve essere un URL valido",
-        "preview.max"=>"Preview non può avere più di 250 caratteri"
+        "preview.img"=>"Preview deve essere un immagine valido",
+        "preview.max"=>"Preview non può avere più di 300 kilobytes"
     ];
     /**
      * Display a listing of the resource.
@@ -111,6 +111,7 @@ class ProjectsController extends Controller
         $errorsMessage= $this->errorsMessage;
         $rules["title"]= ["required", "string", "min:2", "max:100", Rule::unique("projects")->ignore($project->id) ];
         $data= $request->validate($rules, $errorsMessage);
+        $data["preview"]= Storage::put("img", $data["preview"]);
 
         $project->update($data);
 
