@@ -19,4 +19,8 @@ class Project extends Model
     public function getRouteKeyName(){
         return "slug";
     }
+
+    public function isNotUrl(){
+        return !filter_var($this->preview, FILTER_VALIDATE_URL);
+    }
 }

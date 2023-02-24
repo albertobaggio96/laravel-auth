@@ -111,6 +111,11 @@ class ProjectsController extends Controller
         $errorsMessage= $this->errorsMessage;
         $rules["title"]= ["required", "string", "min:2", "max:100", Rule::unique("projects")->ignore($project->id) ];
         $data= $request->validate($rules, $errorsMessage);
+
+        if($request->hasFile("preview") && $project->isNotUrl()){
+            Storage::delete($project->preview);
+        }
+
         $data["preview"]= Storage::put("img", $data["preview"]);
 
         $project->update($data);
@@ -153,6 +158,9 @@ class ProjectsController extends Controller
     public function forceDelete($slug){
         $project= Project::onlyTrashed()->where("slug", $slug)->first();
         $titleRestoreProject = $project->title;
+        if($project->isNotUrl()){
+            Storage::delete($project->preview);
+        }
         Project::where("slug", $slug)->withTrashed()->forceDelete();
 
         return redirect()->route("admin.trashed")->with("message", "$titleRestoreProject è stato cancellato definitivamente")->with("alert-type", "warning");

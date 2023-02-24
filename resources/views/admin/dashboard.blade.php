@@ -9,7 +9,7 @@
         <article class="flip-card col-4 g-5">
           <div class="flip-card-inner">
             <div class="flip-card-front">
-              <img src="{{ $project->preview }}" alt="{{ $project->title }}" class="img-fluid">
+              <img src="{{ filter_var($project->preview, FILTER_VALIDATE_URL) ? $project->preview : asset('storage/'. $project->preview)}}" class="img-fluid">
             </div>
             <div class="flip-card-back">
               <h1>{{ $project->title }}</h1>

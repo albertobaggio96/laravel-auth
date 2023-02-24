@@ -9,7 +9,7 @@
         </div>
       @endif
 
-      <img src="{{ str_starts_with($project->preview, 'http') ? $project->preview : asset('storage/'. $project->preview)}}" alt="{{ $project->title }}" class="preview">
+      <img src="{{ filter_var($project->preview, FILTER_VALIDATE_URL)  ? $project->preview : asset('storage/'. $project->preview)}}" alt="{{ $project->title }}" class="preview">
 
       <h1>{{ $project->title }}</h1>
       <h3>Author: {{ $project->author }}</h3>
