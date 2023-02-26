@@ -180,6 +180,12 @@ class ProjectsController extends Controller
         return redirect()->route("admin.trashed")->with("message", "$titleRestoreProject è stato ripristinato")->with("alert-type", "success");
     }
 
+    /**
+     * search filter by title
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function search(Request $request){
         $projects=Project::where("title", "LIKE", $request->title."%")->orderBy("date", "DESC")->paginate(6);
         return view("admin.project.index", compact("projects"));

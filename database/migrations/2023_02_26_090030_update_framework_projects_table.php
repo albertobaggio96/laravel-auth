@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('projects', function (Blueprint $table) {
-            $table->softDeletes()->after("preview");
+            $table->string("framework", 50)->after("preview");
         });
     }
 
@@ -26,7 +26,7 @@ return new class extends Migration
     public function down()
     {
         Schema::table('projects', function (Blueprint $table) {
-            $table->dropSoftDeletes();
+            $table->dropColumn("framework");
         });
     }
 };
